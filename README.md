@@ -1,4 +1,4 @@
-# graphql-exercise
+# GraphQL Exercise
 
 Keeping your work within a 1 hour range, design and develop a React component that fetches a list of countries from a remote GraphQL API, then displays the retrieved country names in an HTML list.
 

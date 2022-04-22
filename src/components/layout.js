@@ -1,5 +1,5 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import styles from "../styles/Home.module.css";
 
 export function App({ children }) {
   return (
@@ -11,10 +11,8 @@ export function App({ children }) {
       </Head>
 
       <main className={styles.main}>
-        <div className={styles.grid}>
-          {children}
-        </div>
-      </main >
-    </div >
-  )
+        <div className={styles.grid}>{children}</div>
+      </main>
+    </div>
+  );
 }
