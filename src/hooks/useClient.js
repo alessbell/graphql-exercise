@@ -8,12 +8,10 @@ const initialState = { loading: true, error: false, data: undefined };
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'loadingFalse':
-      return { ...state, loading: false };
+    case 'setData':
+      return { ...state, loading: false, data: action.data };
     case 'hasError':
       return { ...state, loading: false, error: true };
-    case 'setData':
-      return { ...state, data: state.data }
     default:
       throw new Error();
   }
@@ -27,7 +25,7 @@ export function useClient({ query } = {}) {
 
   React.useEffect(() => {
     clientFetch()
-      .then(({ data }) => setData(data))
+      .then(({ data }) => dispatch({ type: 'setData', data }))
       .catch((error) => ({
         // noop
       }));
@@ -51,7 +49,6 @@ export function useClient({ query } = {}) {
         if (response.ok && flipCoin) {
           return new Promise((resolve) => {
             setTimeout(() => {
-              dispatch({ type: 'loadingFalse' })
               resolve(response.json());
             }, DELAY);
           });
