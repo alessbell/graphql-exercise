@@ -1,5 +1,5 @@
 import React from "react";
-const API_URL = "http://countries.trevorblades.com";
+const API_URL = "https://countries.trevorblades.com";
 const DELAY = 1100;
 
 const flipCoin = Math.random() < 0.5;
