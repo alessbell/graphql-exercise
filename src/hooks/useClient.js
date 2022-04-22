@@ -4,10 +4,26 @@ const DELAY = 1100;
 
 const flipCoin = Math.random() < 0.5;
 
+const initialState = { loading: true, error: false, data: undefined };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'loadingFalse':
+      return { ...state, loading: false };
+    case 'hasError':
+      return { ...state, loading: false, error: true };
+    case 'setData':
+      return { ...state, data: state.data }
+    default:
+      throw new Error();
+  }
+}
+
 export function useClient({ query } = {}) {
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState(false);
-  const [data, setData] = React.useState(undefined);
+  const [state, dispatch] = React.useReducer(reducer, initialState);
+  // const [loading, setLoading] = React.useState(true);
+  // const [error, setError] = React.useState(false);
+  // const [data, setData] = React.useState(undefined);
 
   React.useEffect(() => {
     clientFetch()
@@ -35,7 +51,7 @@ export function useClient({ query } = {}) {
         if (response.ok && flipCoin) {
           return new Promise((resolve) => {
             setTimeout(() => {
-              setLoading(false);
+              dispatch({ type: 'loadingFalse' })
               resolve(response.json());
             }, DELAY);
           });
@@ -44,8 +60,7 @@ export function useClient({ query } = {}) {
         const errorMessage = await response.text();
         return new Promise((resolve, reject) => {
           setTimeout(() => {
-            setLoading(false);
-            setError(true);
+            dispatch({ type: 'hasError' });
             reject(new Error(errorMessage));
           }, DELAY);
         });
