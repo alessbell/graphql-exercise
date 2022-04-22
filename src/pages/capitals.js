@@ -6,14 +6,13 @@ import styles from "../styles/Home.module.css";
 const ALL_COUNTRIES_QUERY = `
   {
     countries {
-      code
-      name
+      capital
       emoji
     }
   }
 `;
 
-export default function Countries() {
+export default function Capitals() {
   const { data, loading, error } = useClient({
     query: ALL_COUNTRIES_QUERY,
   });
@@ -28,14 +27,14 @@ export default function Countries() {
   if (error)
     return (
       <App>
-        <h1>No countries found :(</h1>
+        <h1>No country capitals found :(</h1>
       </App>
     );
 
   return (
     <App>
-      {data?.countries.map(({ name, code, emoji }) => (
-        <div className={styles.card} key={code}>{`${emoji} ${name}`}</div>
+      {data?.countries.map(({ capital, emoji }) => (
+        <div className={styles.card} key={emoji}>{`${emoji} ${capital || ''}`}</div>
       ))}
     </App>
   );

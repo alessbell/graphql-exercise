@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 const API_URL = "https://countries.trevorblades.com";
 const DELAY = 1100;
 
 const flipCoin = Math.random() < 0.5;
 
 export function useClient({ query } = {}) {
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [isError, setIsError] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState(false);
   const [data, setData] = React.useState(undefined);
 
   React.useEffect(() => {
@@ -35,7 +35,7 @@ export function useClient({ query } = {}) {
         if (response.ok && flipCoin) {
           return new Promise((resolve) => {
             setTimeout(() => {
-              setIsLoading(false);
+              setLoading(false);
               resolve(response.json());
             }, DELAY);
           });
@@ -44,8 +44,8 @@ export function useClient({ query } = {}) {
         const errorMessage = await response.text();
         return new Promise((resolve, reject) => {
           setTimeout(() => {
-            setIsLoading(false);
-            setIsError(true);
+            setLoading(false);
+            setError(true);
             reject(new Error(errorMessage));
           }, DELAY);
         });
@@ -55,8 +55,8 @@ export function useClient({ query } = {}) {
 
   return {
     data,
-    isLoading,
-    isError,
+    loading,
+    error,
     clientFetch,
   };
 }

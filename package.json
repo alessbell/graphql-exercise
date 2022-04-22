@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "country-code-emoji": "2.3.0",
     "next": "12.1.5",
     "react": "18.0.0",
     "react-dom": "18.0.0"
